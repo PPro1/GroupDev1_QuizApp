@@ -1,0 +1,28 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="Quiz App" class="bg-purple-600 text-white" />
+    
+    <GridLayout rows="auto, *">
+        <!-- En-tête -->
+        <StackLayout row="0" class="p-4">
+            <Label text="Bienvenue sur Quiz App" class="text-2xl font-bold text-center text-purple-800" />
+            <Label text="Testez vos connaissances !" class="text-lg text-center text-gray-600" />
+        </StackLayout>
+
+        <!-- Liste des catégories -->
+        <ScrollView row="1">
+            <StackLayout class="p-4">
+                <Repeater items="{{ categories }}">
+                    <Repeater.itemTemplate>
+                        <GridLayout columns="auto, *, auto" 
+                                  class="bg-white rounded-lg p-4 m-2 shadow"
+                                  tap="{{ $parent.onCategoryTap }}">
+                            <Label col="0" text="{{ icon }}" class="text-2xl" />
+                            <Label col="1" text="{{ name }}" class="text-lg ml-2" />
+                            <Label col="2" text="›" class="text-xl text-purple-600" />
+                        </GridLayout>
+                    </Repeater.itemTemplate>
+                </Repeater>
+            </StackLayout>
+        </ScrollView>
+    </GridLayout>
+</Page>

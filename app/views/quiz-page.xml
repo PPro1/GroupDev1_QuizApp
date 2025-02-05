@@ -1,0 +1,45 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="bg-gray-100">
+    <ActionBar title="{{ category.name }}" class="bg-purple-600 text-white">
+        <NavigationButton text="Retour" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <GridLayout rows="auto, *, auto, auto" class="p-4">
+        <!-- Progress -->
+        <StackLayout row="0" class="mb-4">
+            <Label text="{{ progressText }}" class="text-lg text-center text-purple-800 mb-2" />
+            <Progress value="{{ currentQuestionIndex + 1 }}" maxValue="{{ totalQuestions }}" class="bg-purple-200 h-2" />
+        </StackLayout>
+
+        <!-- Question -->
+        <StackLayout row="1" class="bg-white rounded-lg p-6 shadow-md">
+            <Label text="{{ currentQuestion.text }}" textWrap="true" class="text-xl mb-6" />
+            
+            <Repeater items="{{ currentQuestion.options }}" class="space-y-4">
+                <Repeater.itemTemplate>
+                    <Button text="{{ $value }}" 
+                           tap="{{ $parent.onAnswerTap }}"
+                           class="{{ $parent.getOptionClass($index) }}"
+                           isEnabled="{{ $parent.canAnswer }}" />
+                </Repeater.itemTemplate>
+            </Repeater>
+        </StackLayout>
+
+        <!-- Boutons Enregistrer/Annuler -->
+        <GridLayout row="2" columns="*, *" class="mt-4">
+            <Button text="Enregistrer" 
+                    tap="{{ onSaveTap }}" 
+                    class="bg-green-500 text-white rounded-lg p-4 m-2" 
+                    col="0" />
+            <Button text="Annuler" 
+                    tap="{{ onCancelTap }}" 
+                    class="bg-red-500 text-white rounded-lg p-4 m-2" 
+                    col="1" />
+        </GridLayout>
+
+        <!-- Score -->
+        <StackLayout row="3" class="mt-4" visibility="{{ showScore ? 'visible' : 'collapsed' }}">
+            <Label text="Score final : {{ score }}/{{ totalQuestions }}" class="text-2xl text-center text-purple-800" />
+            <Button text="Retour au menu" tap="{{ onBackToMenu }}" class="bg-purple-600 text-white rounded-lg p-4 mt-4" />
+        </StackLayout>
+    </GridLayout>
+</Page>
